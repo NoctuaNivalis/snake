@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="Snake.js"></script>
+    <script type="text/javascript" src="Score.js"></script>
+    <script type="text/javascript"><!--
+        function loop( snake, mouse, score ) {
+            var succes = snake.move();
+            snake.draw();
+            if( succes ) setTimeout( function() {
+                loop( snake, mouse, score )
+            }, score.interval );
+            else alert("YOU DEAD!");
+            if( Math.random() < 0.4 ) mouse.move();
+        }
+        $(document).ready( function() {
+            
+            // Initializing some variables...
+            var width = 40;
+            var height = 40;
+
+            // We create the grid.
+            var grid = new Grid( width, height );
+            grid.newFood();
+            
+            // We create the score.
+            var scoreboard = $( document.createElement( "p" ) );
+            $("#snake").append( scoreboard );
+            var score = new Score( grid, scoreboard );
+
+            // We create the snake.
+            var snake = new Snake( grid, score );
+            snake.draw()
+
+            // We start the game when the user clicks on start.
+            $("#start").click( function() { 
+                // We start the game loop.
+                loop( snake, grid.mouse, score ) 
+                // And we set the controls for the user.
+                $(document).keyup( function( event ) {
+                    switch( event.which ) {
+                        case 65: // a and left arrow key.
+                        case 37: snake.turnLeft(); break;
+                        case 68: // d and right arrow key.
+                        case 39: snake.turnRight(); break;
+                    }
+                });
+            });
+        });
+    --></script>
+</head>
+<body>
+    <div id="snake"></div>
+    <button id="start">Start</button>
+</body>
+</html>

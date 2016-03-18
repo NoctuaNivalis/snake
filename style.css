@@ -1,0 +1,25 @@
+.obstacle {
+    background-color: black;
+}
+
+.bodypart {
+    background-color: green;
+}
+
+#head {
+    background-color: yellow;
+}
+
+.gridcell {
+    border: 1px solid gray;
+    width: 1px;
+    height: 1px;
+}
+
+#snake table {
+    border-collapse: collapse;
+}
+
+.mouse {
+    background-color: red;
+}
